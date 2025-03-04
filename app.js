@@ -6,7 +6,7 @@ import dbConfig from './config/database-config.js';
 dotenv.config({ path: './env/.env' });
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.SERVER_PORT || 3000;
 const pool = mariadb.createPool(dbConfig);
 
 async function asyncFunction() {
