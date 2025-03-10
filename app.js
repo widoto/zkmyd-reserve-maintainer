@@ -2,8 +2,11 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mariadb from 'mariadb';
 import dbConfig from './config/database-config.js';
+import swaggerConfig from './modules/swagger.js';
 
 dotenv.config({ path: './env/.env' });
+
+const { swaggerUi, specs } = swaggerConfig;
 
 const app = express();
 const PORT = process.env.SERVER_PORT || 3000;
@@ -26,6 +29,8 @@ async function asyncFunction() {
 asyncFunction().then(() => {
   console.log('DB connection test completed');
 });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.get('/', (req, res) => {
   res.send('Hello, Node.js!');
